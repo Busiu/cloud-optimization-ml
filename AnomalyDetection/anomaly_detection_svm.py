@@ -43,5 +43,5 @@ def detect_anomalies_and_save_to_csv(computing_type: str, check: bool = False, n
 
 
 if __name__ == '__main__':
-  detect_anomalies_and_save_to_csv('cloud', check=True, normalization=True)
-  detect_anomalies_and_save_to_csv('local', check=True, normalization=True)
+  detect_anomalies_and_save_to_csv('cloud', check=True, normalization=False)
+  detect_anomalies_and_save_to_csv('local', check=True, normalization=False)
