@@ -7,8 +7,8 @@ from numpy import where
 
 def get_normalized_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     df_values = df.values
-    min_max_scaler = preprocessing.MinMaxScaler()
-    df_values_scaled = min_max_scaler.fit_transform(df_values)
+    standard_scaler = preprocessing.StandardScaler()
+    df_values_scaled = standard_scaler.fit_transform(df_values)
     return pd.DataFrame(df_values_scaled)
 
 
@@ -21,7 +21,7 @@ def detect_anomalies_and_save_to_csv(computing_type: str, check: bool = False, n
   if normalization:
     df_normalized = get_normalized_dataframe(df)
 
-    model = OneClassSVM(kernel = 'rbf', gamma = 1e-3, nu = 0.05).fit(df_normalized)
+    model = OneClassSVM(kernel = 'rbf', gamma = 5e-2, nu = 0.05).fit(df_normalized)
     y_pred = model.predict(df_normalized)
   
   else:
@@ -43,5 +43,5 @@ def detect_anomalies_and_save_to_csv(computing_type: str, check: bool = False, n
 
 
 if __name__ == '__main__':
-  detect_anomalies_and_save_to_csv('cloud', check=True, normalization=False)
-  detect_anomalies_and_save_to_csv('local', check=True, normalization=False)
+  detect_anomalies_and_save_to_csv('cloud', check=True, normalization=True)
+  detect_anomalies_and_save_to_csv('local', check=True, normalization=True)
