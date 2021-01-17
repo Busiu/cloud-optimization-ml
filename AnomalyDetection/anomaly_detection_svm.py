@@ -35,8 +35,13 @@ def detect_anomalies_and_save_to_csv(computing_type: str, check: bool = False, n
   normal_guys_df = df.iloc[normal_guys_index_list]
 
   if check:
-    plt.scatter(df[' time'], df[' battery'])
-    plt.scatter(outlier_df[' time'], outlier_df[' battery'], c = 'r')
+    df_battery_converted = df[' battery'] * -1
+    df_battery_converted_outlier = outlier_df[' battery'] * -1
+
+    plt.scatter(df[' time'], df_battery_converted)
+    plt.scatter(outlier_df[' time'], df_battery_converted_outlier, c = 'r')
+    plt.xlabel('time [ms]', fontsize=12)
+    plt.ylabel('battery usage [mAh]', fontsize=12)
     plt.show()
 
   normal_guys_df.to_csv(f'SVM_{computing_type}_no_anomalies.csv', index=False)
